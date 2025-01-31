@@ -11,19 +11,26 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch everything to prevent missing files
 
       - name: Set up Python
-        uses: actions/setup-python@v4  # Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"  # Set a stable Python version
 
       - name: Install dependencies
         run: pip install pyinstaller
 
+      - name: Debug File Structure (Optional)
+        run: ls -R  # Print files to debug missing 'jari.py'
+
       - name: Build executable
-        run: pyinstaller --onefile jari/jari.py  # Adjusted for your structure
+        run: pyinstaller --onefile Jari/jari.py  # Adjusted for your structure
 
       - name: Upload built files
-        uses: actions/upload-artifact@v4  # Upload the executables
+        uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: Executable-${{ runner.os }}
           path: dist/*
