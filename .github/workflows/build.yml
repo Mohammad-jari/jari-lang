@@ -17,7 +17,7 @@ jobs:
         run: pip install pyinstaller
 
       - name: Build executable
-        run: pyinstaller --onefile your_script.py
+        run: pyinstaller --onefile jari.py
 
       - name: Upload built files
         uses: actions/upload-artifact@v3
